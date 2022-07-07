@@ -8,9 +8,22 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
+import {firebase} from '../firebase';
+
 const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+
+    const handleSignUp = () => {
+        firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then((userCredentials) => {
+                const user = userCredentials.user;
+                console.log(user.email);
+            })
+            .catch((error) => alert(error.message));
+    };
 
     return (
         <KeyboardAvoidingView style={styles.container}>
@@ -35,7 +48,7 @@ const Login = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={handleSignUp}
                     style={[styles.button, styles.buttonOutline]}
                 >
                     <Text style={styles.buttonOutlineText}>Register</Text>
