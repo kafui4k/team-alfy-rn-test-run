@@ -25,6 +25,17 @@ const Login = () => {
             .catch((error) => alert(error.message));
     };
 
+    const handleLogin = () => {
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((userCredentials) => {
+                const user = userCredentials.user;
+                console.log('Logged in with:', user.email);
+            })
+            .catch((error) => console.log(error.message));
+    };
+
     return (
         <KeyboardAvoidingView style={styles.container}>
             <View style={styles.inputContainer}>
@@ -43,7 +54,7 @@ const Login = () => {
                 />
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => {}} style={styles.button}>
+                <TouchableOpacity onPress={handleLogin} style={styles.button}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
 
