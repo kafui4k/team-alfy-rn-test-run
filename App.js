@@ -3,6 +3,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './screens/Home';
 import Login from './screens/Login';
+import Signup from './screens/Signup';
+
+import {firebase} from './firebase';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +17,11 @@ export default function App() {
                     options={{headerShown: false}}
                     name='Login'
                     component={Login}
+                />
+                <Stack.Screen
+                    options={{headerShown: false}}
+                    name='Signup'
+                    component={Signup}
                 />
                 <Stack.Screen name='Home' component={Home} />
             </Stack.Navigator>

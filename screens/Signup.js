@@ -10,7 +10,7 @@ import {
 
 import {firebase} from '../firebase';
 
-const Login = ({navigation}) => {
+const Signup = ({navigation}) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -24,22 +24,22 @@ const Login = ({navigation}) => {
         return unsubscribe;
     }, []);
 
-    const handleLogin = () => {
+    const handleSignUp = () => {
         firebase
             .auth()
-            .signInWithEmailAndPassword(email, password)
+            .createUserWithEmailAndPassword(email, password)
             .then((userCredentials) => {
                 const user = userCredentials.user;
-                console.log('Logged in with:', user.email);
+                console.log(user.email);
             })
-            .catch((error) => console.log(error.message));
+            .catch((error) => alert(error.message));
     };
 
     return (
         <View style={{flex: 1}}>
             <View style={styles.title}>
-                <Text style={styles.titleText}>Let's sign</Text>
-                <Text style={styles.titleText}>you in.</Text>
+                <Text style={styles.titleText}>Create your</Text>
+                <Text style={styles.titleText}>Account.</Text>
             </View>
             <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.inputContainer}>
@@ -60,15 +60,11 @@ const Login = ({navigation}) => {
                 </View>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                        onPress={handleLogin}
+                        onPress={handleSignUp}
                         style={styles.button}
                     >
-                        <Text style={styles.buttonText}>Sign in</Text>
+                        <Text style={styles.buttonText}>Sign up</Text>
                     </TouchableOpacity>
-
-                    <Text style={{color: '#B79797', padding: 20}}>
-                        Forgot the password?
-                    </Text>
 
                     <View style={{padding: 20, margin: 20}}>
                         <Text style={{fontWeight: '300', padding: 20}}>
@@ -89,16 +85,16 @@ const Login = ({navigation}) => {
                         }}
                     >
                         <Text style={{fontWeight: '300'}}>
-                            Don't have an account?
+                            Already have an account?
                         </Text>
                         <TouchableOpacity
                             onPress={() => {
-                                navigation.replace('Signup');
+                                navigation.replace('Login');
                             }}
                             // style={[styles.button, styles.buttonOutline]}
                         >
                             <Text style={styles.buttonOutlineText}>
-                                Sign up
+                                Sign in
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -108,7 +104,7 @@ const Login = ({navigation}) => {
     );
 };
 
-export default Login;
+export default Signup;
 
 const styles = StyleSheet.create({
     container: {
